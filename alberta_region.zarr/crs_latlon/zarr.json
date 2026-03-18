@@ -1,0 +1,51 @@
+{
+  "shape": [
+    45,
+    41
+  ],
+  "data_type": {
+    "name": "null_terminated_bytes",
+    "configuration": {
+      "length_bytes": 8
+    }
+  },
+  "chunk_grid": {
+    "name": "regular",
+    "configuration": {
+      "chunk_shape": [
+        45,
+        41
+      ]
+    }
+  },
+  "chunk_key_encoding": {
+    "name": "default",
+    "configuration": {
+      "separator": "/"
+    }
+  },
+  "fill_value": "",
+  "codecs": [
+    {
+      "name": "bytes"
+    },
+    {
+      "name": "zstd",
+      "configuration": {
+        "level": 0,
+        "checksum": false
+      }
+    }
+  ],
+  "attributes": {
+    "grid_mapping_name": "latitude_longitude",
+    "earth_radius": 6370997.0
+  },
+  "dimension_names": [
+    "lat",
+    "lon"
+  ],
+  "zarr_format": 3,
+  "node_type": "array",
+  "storage_transformers": []
+}
