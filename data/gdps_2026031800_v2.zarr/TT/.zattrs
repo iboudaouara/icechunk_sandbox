@@ -1,0 +1,8 @@
+{
+  "units": "Celsius",
+  "_ARRAY_DIMENSIONS": [
+    "time",
+    "lat",
+    "lon"
+  ]
+}

@@ -1,0 +1,12 @@
+inline_chunk_threshold_bytes: null
+get_partial_values_concurrency: null
+compression: null
+max_concurrent_requests: null
+caching: null
+storage: null
+virtual_chunk_containers:
+  file:///Users/iboudaouara/Documents/GitHub/icechunk_sandbox/gdps_2026031800.zarr/:
+    name: null
+    url_prefix: file:///Users/iboudaouara/Documents/GitHub/icechunk_sandbox/gdps_2026031800.zarr/
+    store: !local_file_system gdps_2026031800.zarr
+manifest: null

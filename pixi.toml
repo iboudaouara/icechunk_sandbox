@@ -1,0 +1,16 @@
+[workspace]
+authors = ["Ibrahim Boudaouara <158514881+iboudaouara@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "icechunk_sandbox"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+icechunk = ">=1.1.21,<2"
+xarray = ">=2026.2.0,<2027"
+numpy = ">=2.4.3,<3"
+pandas = ">=3.0.1,<4"
+zarr = ">=3.1.5,<4"
+dask = ">=2026.1.2,<2027"
