@@ -17,6 +17,11 @@ curl -fsSL https://pixi.sh/install.sh | bash
 source ~/.$(basename $SHELL)rc
 ```
 
+## Usage
+pixi run python create_zarr.py
+# Pour inspecter le format Zarr v2 ou v3
+ls -R temperature_data.zarr
+
 ## Data Naming Convention
 All raw datasets follow the pattern: `gdps_{TIMESTAMP}_{VERSION}.zarr`
 - **TIMESTAMP**: YYYYMMDDHH (Model run start time)
