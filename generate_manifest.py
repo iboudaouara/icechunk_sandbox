@@ -46,10 +46,20 @@ if snapshots:
 else:
     # On crée une session d'écriture
     session = repo.writable_session("main")
-    
+
     # On écrit les métadonnées (Virtual Chunks)
     ds.to_zarr(session.store, mode="w")
-    
+
     # On commit et on récupère le snapshot_id
     snapshot_id = session.commit("Import GDPS via Virtual Chunks")
     print(f"Commit réussi ! ID: {snapshot_id}")
+
+
+**How it is handled:**
+
+| Feature | Zarr v2 (The Workaround) | Zarr v3 (The Standard) |
+| :--- | :--- | :--- |
+| **Format** | Scattered `.zarray`, `.zgroup`, `.zattrs` files. | Unified `zarr.json` files. |
+| **Consolidation** | Opt-in patch (`.zmetadata`). | Natively integrated via extensions. |
+| **Usage** | Requires explicit functions (e.g., `zarr.open_consolidated()`). | Transparent. Clients handle it automatically. |
+| **Maintenance** | Manual updates required when dataset structure changes. | Standardized and inherently managed. |
