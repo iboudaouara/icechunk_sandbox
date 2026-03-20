@@ -71,7 +71,7 @@ Cloud storage (like S3 or GCS) suffers from high latency when fetching thousands
 
 **How it is handled:**
 
-| Feature | Zarr v2 (The Workaround) | Zarr v3 (The Standard) |
+| Feature | Zarr v2 (Legacy) | Zarr v3 (Current) |
 | :--- | :--- | :--- |
 | **Format** | Scattered `.zarray`, `.zgroup`, `.zattrs` files. | Unified `zarr.json` files. |
 | **Consolidation** | Opt-in patch (`.zmetadata`). | Natively integrated via extensions. |
