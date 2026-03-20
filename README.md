@@ -6,7 +6,6 @@ Experiments with Icechunk — a transactional storage engine for Zarr with Git-l
 
 - Understand Icechunk manifests and snapshot mechanics
 - Understand Zarr v2/v3 on-disk differences and when consolidated metadata matters
-- Prototype a conversion pipeline from RPN FST to Zarr
 
 ## Setup
  
@@ -54,6 +53,19 @@ Consolidation aggregates all metadata into a single file, reducing cloud API cal
 | `xarray` | Labeled array manipulation and Zarr I/O |
 | `dask` | Lazy parallel computation for chunked arrays |
 | `numpy` / `pandas` | Synthetic data generation |
+
+## Icechunk repo structure
+ 
+| Directory | Role |
+|---|---|
+| `chunks/` | Actual data, content-addressed by hash |
+| `manifests/` | Maps chunk references for a given snapshot |
+| `snapshots/` | One entry per commit — points to a manifest |
+| `refs/` | Branch pointers (e.g. `branch.main`) — like Git refs |
+| `transactions/` | In-progress or recently completed writes |
+| `config.yaml` | Repo-level config (virtual chunk containers, etc.) |
+ 
+Once created, the repo is self-contained — the original Zarr source is no longer needed. This holds as long as chunks are written in full copy mode (`ds.to_zarr(session.store)`). With virtual chunks, the repo only stores pointers and the source must stay accessible.
 
 ## References
  
