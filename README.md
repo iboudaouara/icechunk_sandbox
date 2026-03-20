@@ -2,18 +2,28 @@
 
 Icechunk Sandbox is a workspace dedicated to experimenting with Icechunk, an open-source transactional storage engine for Zarr that provides Git-like version control and safe concurrent data access.
 
+## Objective
+
+The primary purpose of this repository is to experiment with Icechunk manifests and the underlying Zarr storage mechanisms.
+
+## Core Dependencies
+
+This project uses [Pixi](https://pixi.sh) to manage the Python environment and its dependencies. The core libraries driving this sandbox include:
+
+- **Icechunk:** The central dependency of this project, enabling experiments with transactional storage, dataset branching, and manifests.
+- **Xarray:** Used to create, format, and manipulate the N-dimensional labeled data arrays before they are written to disk.
+- **Zarr:** The underlying storage format library handling how the chunked, compressed N-dimensional data is saved and read.
+- **Pandas & Numpy:** Utilized alongside Xarray to generate the time series and numerical bounds for the mock datasets.
+
 ## Installation
 
-This project uses [Pixi](https://pixi.sh) to manage the Python environment and dependencies.
-
-Follow these steps to set up the workspace:
+Follow these steps to set up the workspace using Pixi:
 
 **1. Install Pixi (if not already installed)**
 
 ```bash
+# Works for both macOS and Linux environment
 curl -fsSL https://pixi.sh/install.sh | bash
-
-
 source ~/.$(basename $SHELL)rc
 ```
 
