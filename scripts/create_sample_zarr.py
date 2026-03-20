@@ -21,15 +21,11 @@ def build_dataset(run_time: pd.Timestamp) -> xr.Dataset:
     lats = np.arange(-90, 91, 1.0)
     lons = np.arange(0, 360, 1.0)
 
-    temperature_data = np.random.uniform(
-        low=-20, high=40, size=(len(times), len(lats), len(lons))
-    )
-
     ds = xr.Dataset(
         data_vars={
             "air_temperature": (
                 ["time", "lat", "lon"],
-                temperature_data,
+                np.random.uniform(-20, 40, (len(times), len(lats), len(lons))),
                 {"units": "Celsius", "long_name": "Air Temperature"},
             )
         },
@@ -39,10 +35,9 @@ def build_dataset(run_time: pd.Timestamp) -> xr.Dataset:
             "lon": (["lon"], lons, {"units": "degrees_east"}),
         },
         attrs={
-            "description": "Synthetic temperature dataset for Icechunk/Zarr experimentation.",
+            "description": "Synthetic temperature dataset for Icechunk/Zarr experimentation."
         },
     )
-
     return ds.chunk({"time": 5, "lat": 90, "lon": 90})
 
 
@@ -50,43 +45,25 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Write a synthetic Zarr dataset to disk."
     )
-    parser.add_argument(
-        "--version",
-        type=int,
-        choices=[2, 3],
-        default=3,
-        help="Zarr format version (default: 3).",
-    )
-    parser.add_argument(
-        "--consolidated",
-        action="store_true",
-        default=False,
-        help="Write consolidated metadata (default: False).",
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        default="./data",
-        help="Directory to write the Zarr store (default: current directory).",
-    )
+    parser.add_argument("--version", type=int, choices=[2, 3], default=3)
+    parser.add_argument("--consolidated", action="store_true", default=False)
+    parser.add_argument("--output-dir", type=str, default="./data")
     args = parser.parse_args()
 
     run_time = pd.Timestamp.now(tz="UTC").floor("D").tz_localize(None)
-    timestamp_str = run_time.strftime("%Y%m%d%H")
+    consolidated_suffix = "_c" if args.consolidated else ""
     zarr_path = os.path.join(
-        args.output_dir, f"sample_{timestamp_str}_v{args.version}.zarr"
+        args.output_dir,
+        f"sample_{run_time:%Y%m%d%H}_v{args.version}{consolidated_suffix}.zarr",
     )
 
     ds = build_dataset(run_time)
     ds.to_zarr(
-        zarr_path,
-        mode="w",
-        zarr_format=args.version,
-        consolidated=args.consolidated,
+        zarr_path, mode="w", zarr_format=args.version, consolidated=args.consolidated
     )
 
-    consolidated_label = "consolidated" if args.consolidated else "no consolidation"
-    print(f"✅ Zarr v{args.version} ({consolidated_label}) written to: {zarr_path}")
+    label = "consolidated" if args.consolidated else "no consolidation"
+    print(f"✅ Zarr v{args.version} ({label}) written to: {zarr_path}")
     print(ds)
 
 
