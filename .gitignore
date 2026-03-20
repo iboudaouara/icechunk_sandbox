@@ -3,3 +3,4 @@ venv
 .pixi/*
 !.pixi/config.toml
 data/*
+!data/.empty
